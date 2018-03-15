@@ -35,7 +35,7 @@ export default class App extends Component<Props> {
         {name:"奶茶"},
       ]
     }
-    this.names = ['推荐','新品','热卖','奶茶','饮料','小炒'];
+    this.names = ['推荐','新品','热卖','奶茶','饮料','小炒','小炒','小炒','小炒','小炒','小炒'];
     this.items = [];
     this.order = [];
   }
@@ -104,22 +104,13 @@ export default class App extends Component<Props> {
       });
   }
   _getIdByPosition(pageY){
-    var id = -1;
+    let id = -1;
     const height = 49;
-
-    if(pageY >= height && pageY < height*2)
-        id = 0;
-    else if(pageY >= height*2 && pageY < height*3)
-        id = 1;
-    else if(pageY >= height*3 && pageY < height*4)
-        id = 2;
-    else if(pageY >= height*4 && pageY < height*5)
-        id = 3;
-    else if(pageY >= height*5 && pageY < height*6)
-        id = 4;
-    else if(pageY >= height*6 && pageY < height*7)
-        id = 5;
-    return id;
+    for (let i = 0; i < this.names.length; i++) {
+      if(pageY >= height*(i+1) && pageY < height*(i+2)){
+        return i
+      }
+    }
 }
 
 _getTopValueYById(id){

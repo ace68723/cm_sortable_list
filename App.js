@@ -27,21 +27,27 @@ export default class App extends Component<Props> {
   constructor(props) {
     super(props)
     this.state = {
-      itemList:[
-        {name:"推荐"},
-        {name:"新品"},
-        {name:"热卖"},
-        {name:"饮料"},
-        {name:"奶茶"},
+      categoryList:[
+        {name:"推荐",
+         dtid:123123
+        },
+        {name:"新品",
+         dtid:123123
+        },
+        {name:"热卖",
+         dtid:123123
+        },
+        {name:"饮料",
+         dtid:123123
+        },
+        {name:"奶茶",
+         dtid:123123
+        },
       ]
     }
-    this.names = ['推荐','新品','热卖','奶茶','饮料','小炒','小炒','小炒','小炒','小炒','小炒'];
     this.items = [];
     this.order = [];
   }
-  // constructor() {
-
-  // }
   componentWillMount(){
       this._panResponder = PanResponder.create({
           onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -106,11 +112,12 @@ export default class App extends Component<Props> {
   _getIdByPosition(pageY){
     let id = -1;
     const height = 49;
-    for (let i = 0; i < this.names.length; i++) {
+    for (let i = 0; i < this.state.categoryList.length; i++) {
       if(pageY >= height*(i+1) && pageY < height*(i+2)){
         return i
       }
     }
+    return id
 }
 
 _getTopValueYById(id){
@@ -118,17 +125,19 @@ _getTopValueYById(id){
     return (id + 1) * height;
 }
   render() {
+    console.log(this.state.categoryList)
     return (
         <View style={styles.container}>
-        {this.names.map((item, i)=>{
+        {this.state.categoryList.map((item, i)=>{
             this.order.push(item);
+            console.log(item)
             return (
                 <View
                     {...this._panResponder.panHandlers}
                     ref={(ref) => this.items[i] = ref}
                     key={i}
                     style={[styles.item, {top: (i+1)*49}]}>
-                    <Text style={styles.itemTitle}>{item}</Text>
+                    <Text style={styles.itemTitle}>{item.name}</Text>
                 </View>
             );
         })}
